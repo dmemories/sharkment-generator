@@ -1,6 +1,9 @@
 <?php
 
-    $inputDir = 'C:\Users\Alkaiser\source\repos\ABC New Item Generator\bin\Release\output\data\sprite\악세사리\남';
+    define("OUTPUT_DIR", __DIR__ . "\\output");
+
+    $inputDir = 'C:\Users\Alkaiser\source\repos\ABC New Item Generator\bin\Release\output\data\sprite\x';
+    $startViewId = 2500;
     $jobFile = "job.txt";
 
     if (!file_exists($inputDir)) {
@@ -10,10 +13,9 @@
         exit("Not found job file (" . $jobFile . ")");
     }
 
-    $outputDir = __DIR__ . "\\output";
-    deleteDirectory($outputDir);
+    deleteDirectory(OUTPUT_DIR);
 
-    $outputDir .= "\\sprite\\·Îºê";
+    $outputDir = OUTPUT_DIR . "\\sprite\\·Îºê";
     mkdir($outputDir, 0777, true);
 
     $parentDirMap = [];
@@ -40,7 +42,15 @@
         }
     }
 
+    $spriteRobeName = "";
+    $spriteRobeId = "";
+    $transparenItem = "";
+
     foreach ($parentDirMap as $parentDirName => $inputFiles) {
+        $spriteRobeName .= "	[SPRITE_ROBE_IDs.ROBE_" . $parentDirName . "] = \"" . $parentDirName . "\",\n";
+        $spriteRobeId .= "	ROBE_". $parentDirName . " = ". $startViewId . ",\n";
+        $transparenItem .= "	{ " . $startViewId++ . ", 255, 255, 25500 },\n";
+
         $targetDir = $outputDir . "\\" . $parentDirName;
         foreach ($genderList as $gender) {
             mkdir($targetDir . "\\" . $gender, 0777, true);
@@ -56,6 +66,9 @@
         }
     }
 
+    createTextFile("SpriteRobeName.txt", $spriteRobeName);
+    createTextFile("SpriteRobeId.txt", $spriteRobeId);
+    createTextFile("transparentitem.txt", $transparenItem);
 
     function removeGenderString($str) {
         $str = str_replace("³²_", "", $str);
@@ -65,7 +78,6 @@
 
         return $str;
     }
-
 
     function deleteDirectory($dir) {
         if (!file_exists($dir)) {
@@ -88,6 +100,12 @@
         }
 
         return rmdir($dir);
+    }
+
+    function createTextFile($fileName, $content) {
+        $file_handle = fopen(OUTPUT_DIR . "\\" . $fileName, 'w');
+        fwrite($file_handle, $content);
+        fclose($file_handle);
     }
 
     // $nameList = [];
