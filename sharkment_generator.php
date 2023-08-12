@@ -2,7 +2,8 @@
 
     define("OUTPUT_DIR", __DIR__ . "\\output");
 
-    $inputDir = 'C:\Users\Alkaiser\source\repos\ABC New Item Generator\bin\Debug\output\data\sprite\악세사리\남';
+    // Target to male folder
+    $inputDir = __DIR__ . '\\input';
     $startViewId = 2500;
     $jobFile = "job.txt";
 
