@@ -2,7 +2,7 @@
 
     define("OUTPUT_DIR", __DIR__ . "\\output");
 
-    $inputDir = 'C:\Users\Alkaiser\source\repos\ABC New Item Generator\bin\Release\output\data\sprite\x';
+    $inputDir = 'C:\Users\Alkaiser\source\repos\ABC New Item Generator\bin\Debug\output\data\sprite\악세사리\남';
     $startViewId = 2500;
     $jobFile = "job.txt";
 
